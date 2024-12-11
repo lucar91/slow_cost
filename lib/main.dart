@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
+import 'login_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,23 +12,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gestione Spese',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
+        fontFamily: 'Montserrat',
       ),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Gestione Spese'),
-      ),
-      body: Center(
-        child: Text('Benvenuto nella tua app di gestione spese!'),
-      ),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+      },
     );
   }
 }
