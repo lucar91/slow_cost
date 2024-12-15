@@ -10,14 +10,10 @@ Future<void> main() async {
 
   try {
     // Carica le variabili di ambiente
-    try {
-      // Carica le variabili di ambiente
-      await dotenv.load(fileName: '.env');
-      print('Supabase URL: ${dotenv.env['SUPABASE_URL']}');
-      print('Supabase Anon Key: ${dotenv.env['SUPABASE_ANON_KEY']}');
-    } catch (e) {
-      print('Errore nel caricamento del file .env: $e');
-    }
+    await dotenv.load(fileName: '.env');
+    print('Supabase URL: ${dotenv.env['SUPABASE_URL']}');
+    print('Supabase Anon Key: ${dotenv.env['SUPABASE_ANON_KEY']}');
+
     // Inizializza Supabase
     await Supabase.initialize(
       url: dotenv.env['SUPABASE_URL']!,
@@ -42,11 +38,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Montserrat',
       ),
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/home': (context) => HomePage(),
-      },
+      home: _decideInitialPage(), // Imposta la pagina iniziale dinamicamente
     );
+  }
+
+  Widget _decideInitialPage() {
+    final user = Supabase.instance.client.auth.currentUser;
+
+    if (user != null) {
+      print('Utente loggato: ${user.id}');
+      return HomePage(); // Se c'è una sessione, vai a HomePage
+    } else {
+      print('Nessun utente loggato, vai al login');
+      return LoginPage(); // Altrimenti, vai al Login
+    }
   }
 }

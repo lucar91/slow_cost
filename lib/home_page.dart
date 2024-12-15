@@ -46,8 +46,9 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');
+            onPressed: () async {
+              await Supabase.instance.client.auth.signOut(); // Effettua il logout
+              Navigator.pushReplacementNamed(context, '/login'); // Torna alla pagina di login
             },
           ),
         ],
