@@ -1,0 +1,1 @@
+ C:\\Users\\Luca\\Desktop\\ProgettiFlutter\\slow_cost\\.dart_tool\\flutter_build\\3e250aabb750641be985376c778f7348\\native_assets.yaml: 
