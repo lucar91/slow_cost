@@ -39,20 +39,36 @@ class LoginPage extends StatelessWidget {
                 }
 
                 try {
-                  // Effettua il login con Supabase
+                  print('Tentativo di login con email: $email');
+
+                  // Ottieni la risposta da Supabase
                   final response = await Supabase.instance.client.auth.signInWithPassword(
                     email: email,
                     password: password,
                   );
 
-                  if (response.user != null) {
-                    print('Utente loggato: ${response.user!.id}');
+                  // Usando il null-aware operator ?. per accedere a response.user in modo sicuro
+                  final userId = response.user?.id; // Se response.user è null, userId sarà null
+
+                  if (userId != null) {
+                    print('Utente loggato: $userId');
                     // Naviga alla HomePage
                     Navigator.pushReplacementNamed(context, '/home');
                   } else {
-                    throw Exception('Login fallito: ${response}');
+                    print('Login fallito: Nessun utente trovato');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Login fallito: Credenziali non valide')),
+                    );
                   }
+                } on AuthException catch (e) {
+                  // Gestisce errori specifici di autenticazione
+                  print('Errore di autenticazione: ${e.message}');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Errore durante il login: ${e.message}')),
+                  );
                 } catch (e) {
+                  // Gestisce altri errori generici
+                  print('Errore durante il login: $e');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Errore durante il login: ${e.toString()}')),
                   );

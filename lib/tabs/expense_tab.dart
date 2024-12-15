@@ -48,25 +48,22 @@ class _ExpenseTabState extends State<ExpenseTab> {
 
     _formKey.currentState!.save();
 
-    // Ottieni l'ID dell'utente loggato
     final user = Supabase.instance.client.auth.currentUser;
-    final userId = user?.id;
-
-    if (userId == null) {
+    if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Errore: utente non autenticato')),
       );
       return;
     }
 
-    final expense = Expense(
-      idMovimento: null,
-      date: _selectedDate,
-      name: _name,
-      category: selectedCategory,
-      subcategory: selectedSubcategory,
-      amount: _amount,
-    );
+    final expense = {
+      'user_id': user.id,
+      'date': _selectedDate?.toIso8601String(),
+      'name': _name,
+      'category': selectedCategory,
+      'subcategory': selectedSubcategory,
+      'amount': _amount,
+    };
 
     setState(() {
       _isLoading = true; // Mostra il loader
@@ -75,24 +72,23 @@ class _ExpenseTabState extends State<ExpenseTab> {
     try {
       final response = await Supabase.instance.client
           .from('expenses') // Nome della tabella in Supabase
-          .insert({
-        'user_id': userId, // Aggiungi l'ID dell'utente loggato
-        'date': expense.date?.toIso8601String(),
-        'name': expense.name,
-        'category': expense.category,
-        'subcategory': expense.subcategory,
-        'amount': expense.amount,
-      });
+          .insert(expense)
+          .select();
 
-      if (response.error == null) {
+      if (response != null && response.isNotEmpty) {
+        // Inserimento avvenuto con successo
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Riga aggiunta correttamente!')),
+          SnackBar(content: Text('Spesa aggiunta correttamente!')),
         );
         _resetForm();
       } else {
-        throw Exception(response.error?.message);
+        // Nessun dato restituito
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Errore durante l\'inserimento della spesa')),
+        );
       }
     } catch (e) {
+      // Gestisce eventuali errori generali
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Errore: ${e.toString()}')),
       );

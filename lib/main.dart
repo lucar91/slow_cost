@@ -38,7 +38,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Montserrat',
       ),
-      home: _decideInitialPage(), // Imposta la pagina iniziale dinamicamente
+      initialRoute: '/',
+      routes: {
+        '/': (context) => _decideInitialPage(), // Route dinamica iniziale
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+      },
     );
   }
 

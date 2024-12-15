@@ -4,6 +4,7 @@ import 'tabs/budget_tab.dart';
 import 'tabs/kpi_tab.dart';
 import 'tabs/charts_tab.dart';
 import 'tabs/edit_tab.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
