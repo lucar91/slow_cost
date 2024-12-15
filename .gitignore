@@ -1,0 +1,5 @@
+# Ignore APK files
+*.apk
+
+# Ignore Flutter build output
+build/
