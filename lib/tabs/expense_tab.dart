@@ -48,6 +48,17 @@ class _ExpenseTabState extends State<ExpenseTab> {
 
     _formKey.currentState!.save();
 
+    // Ottieni l'ID dell'utente loggato
+    final user = Supabase.instance.client.auth.currentUser;
+    final userId = user?.id;
+
+    if (userId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore: utente non autenticato')),
+      );
+      return;
+    }
+
     final expense = Expense(
       idMovimento: null,
       date: _selectedDate,
@@ -65,6 +76,7 @@ class _ExpenseTabState extends State<ExpenseTab> {
       final response = await Supabase.instance.client
           .from('expenses') // Nome della tabella in Supabase
           .insert({
+        'user_id': userId, // Aggiungi l'ID dell'utente loggato
         'date': expense.date?.toIso8601String(),
         'name': expense.name,
         'category': expense.category,
@@ -108,7 +120,7 @@ class _ExpenseTabState extends State<ExpenseTab> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(35.0),
               child: Image.asset(
-                'assets/loader.webp',
+                'assets/money_loader.gif',
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,

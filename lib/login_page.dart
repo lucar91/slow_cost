@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatelessWidget {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _usernameController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
@@ -17,7 +18,7 @@ class LoginPage extends StatelessWidget {
           children: [
             TextField(
               controller: _usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
+              decoration: InputDecoration(labelText: 'Email'),
             ),
             TextField(
               controller: _passwordController,
@@ -26,9 +27,36 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Per ora non ci sono controlli, va direttamente alla HomePage.
-                Navigator.pushReplacementNamed(context, '/home');
+              onPressed: () async {
+                final email = _usernameController.text.trim();
+                final password = _passwordController.text.trim();
+
+                if (email.isEmpty || password.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Email e Password sono obbligatorie')),
+                  );
+                  return;
+                }
+
+                try {
+                  // Effettua il login con Supabase
+                  final response = await Supabase.instance.client.auth.signInWithPassword(
+                    email: email,
+                    password: password,
+                  );
+
+                  if (response.user != null) {
+                    print('Utente loggato: ${response.user!.id}');
+                    // Naviga alla HomePage
+                    Navigator.pushReplacementNamed(context, '/home');
+                  } else {
+                    throw Exception('Login fallito: ${response}');
+                  }
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Errore durante il login: ${e.toString()}')),
+                  );
+                }
               },
               child: Text('Login'),
             ),
