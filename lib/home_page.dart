@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'tabs/expense_tab.dart';
+import 'tabs/budget_tab.dart';
+import 'tabs/kpi_tab.dart';
+import 'tabs/charts_tab.dart';
+import 'tabs/edit_tab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,10 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   final List<Widget> _tabs = [
-    ExpenseTab(), // Tab Aggiungi Spesa (Home)
+    BudgetTab(), // Budget
+    KpiTab(), // KPI
+    ExpenseTab(), // Home
+    ChartsTab(), // Grafici
+    EditTab(), // Modifica
   ];
 
   void _onItemTapped(int index) {
