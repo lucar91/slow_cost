@@ -26,6 +26,11 @@ ios/Runner/GeneratedPluginRegistrant.*
 
 # macOS build directories and files
 macos/Flutter/ephemeral/
+macos/Flutter/flutter_export_environment.sh
+macos/Flutter/Generated.xcconfig
+
+# macOS system files
+macos/.DS_Store
 
 # Generated files
 *.lock

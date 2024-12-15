@@ -1,0 +1,123 @@
+{
+    "Entrata": [
+        "Extra",
+        "Rimborso",
+        "Stipendio"
+    ],
+    "Banca": [
+        "Commissioni",
+        "Mutuo",
+        "Prestito"
+    ],
+    "Casa": [
+        "Acqua",
+        "Gas",
+        "Luce",
+        "Manutenzione",
+        "Tari",
+        "Canone"
+    ],
+    "Cibo Fuori": [
+        "Aperitivo",
+        "Cena",
+        "Colazione",
+        "Merenda",
+        "Pranzo"
+    ],
+    "Cultura": [
+        "Corsi",
+        "Libri"
+    ],
+    "Cura personale": [
+        "Barbiere",
+        "Massaggi"
+    ],
+    "Facility": [
+        "Computer",
+        "SIM",
+        "Software",
+        "Tablet",
+        "Telefono"
+    ],
+    "Intrattenimento": [
+        "Abbonamenti",
+        "Attività organizzate",
+        "Cinema",
+        "Teatro"
+    ],
+    "Mezzi": [
+        "Abbigliamento Moto",
+        "Accessori Auto",
+        "Accessori Moto",
+        "Assicurazione Auto",
+        "Assicurazione Moto",
+        "Benzina Auto",
+        "Benzina Moto",
+        "Bollo Auto",
+        "Bollo Moto",
+        "Gomme Auto",
+        "Gomme Moto",
+        "Manutenzione Auto",
+        "Manutenzione Moto",
+        "Tagliando Auto",
+        "Tagliando Moto",
+        "Assicurazione Conducente",
+        "Pulizia Auto",
+        "Pulizia Moto"
+    ],
+    "Regalo": [
+        "Collega",
+        "Compleanno",
+        "Donazione",
+        "Generico Amici",
+        "Laurea",
+        "Matrimonio",
+        "Battesimo"
+    ],
+    "Salute": [
+        "Medicine",
+        "Palestra",
+        "Sport",
+        "Visite"
+    ],
+    "Shopping": [
+        "Abbigliamento",
+        "Accessori",
+        "Altro"
+    ],
+    "Spesa": [
+        "Casa",
+        "Detersivi",
+        "Giochi da Tavolo",
+        "Extra",
+        "Igiene"
+    ],
+    "Trasporto": [
+        "Bigl. Aereo",
+        "Bigl. Autobus",
+        "Bigl. Treno",
+        "Taxi",
+        "Pedaggi"
+    ],
+    "Vacanza": [
+        "Alloggio",
+        "Aperitivo",
+        "Cena",
+        "Colazione",
+        "Merenda",
+        "Museo",
+        "Pranzo",
+        "Souvenir",
+        "Spostamenti",
+        "Tassa Soggiorno"
+    ],
+    "Tasse": [],
+    "C/terzi": [
+        "Rimborso terzi",
+        "Giorgia",
+        "Amici"
+    ],
+    "Sanzioni": [
+        "Multa divieto di sosta"
+    ]
+}

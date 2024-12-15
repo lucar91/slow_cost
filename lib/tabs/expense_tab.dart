@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../models/expense.dart';
 import '../utilities/formatDatetime.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ExpenseTab extends StatefulWidget {
   @override
@@ -61,14 +62,23 @@ class _ExpenseTabState extends State<ExpenseTab> {
     });
 
     try {
-      final result = null;
-      if (result) {
+      final response = await Supabase.instance.client
+          .from('expenses') // Nome della tabella in Supabase
+          .insert({
+        'date': expense.date?.toIso8601String(),
+        'name': expense.name,
+        'category': expense.category,
+        'subcategory': expense.subcategory,
+        'amount': expense.amount,
+      });
+
+      if (response.error == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Riga aggiunta correttamente!')),
         );
         _resetForm();
       } else {
-        throw Exception('Errore durante l\'aggiunta della riga');
+        throw Exception(response.error?.message);
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
